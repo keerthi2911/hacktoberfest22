@@ -1,0 +1,90 @@
+package stackUsingLL;
+
+public class node<T> {
+    T data;
+    node<T> next;
+
+    node(T data){
+        this.data= data;
+        next= null;
+    }
+}
+
+public class EmptyStackException extends Exception{
+}
+
+public class stackUsingLLUse {
+    public static void main(String[] args) throws EmptyStackException {
+
+        stackUsingLL stack= new stackUsingLL();
+//        for(int i=0; i<9; i++){
+//            stack.push(i);
+//        }
+//
+//        System.out.println(stack.top());
+//        System.out.println(stack.size());
+//
+//        for(int i=0; i<8; i++){
+//            System.out.print(stack.pop()+" ");
+//        }
+
+        System.out.println(stack.isEmpty());
+        stack.push(7);
+        System.out.println(stack.isEmpty());
+        System.out.println(stack.pop());
+        System.out.println(stack.pop());
+
+
+    }
+}
+
+package stackUsingLL;
+
+public class stackUsingLL {
+     private node<Integer> head= new node<Integer>(0);
+     private node<Integer> tail= head ;
+
+     public int size(){
+         if(isEmpty()){
+             return 0;
+         }
+         int size=1;
+         node<Integer> temp= this.head.next;
+         while(temp!= this.tail){
+             temp= temp.next;
+             size++;
+         }
+         return size;
+     }
+
+     public boolean isEmpty(){
+         return this.head.next==null;
+     }
+
+     public void push(int elem){
+         node<Integer> newNode= new node<Integer>(elem);
+         this.tail.next= newNode;
+         this.tail= newNode;
+     }
+
+     public int pop() throws EmptyStackException {
+         if(isEmpty()){
+             EmptyStackException e= new EmptyStackException();
+             throw e;
+         }
+
+         int last= this.tail.data;
+         node<Integer> temp= this.head;
+         while(temp.next!= this.tail){
+             temp=temp.next;
+         }
+         temp.next= null;
+         this.tail= temp;
+         return last;
+     }
+
+     public int top(){
+         return this.tail.data;
+     }
+
+}
